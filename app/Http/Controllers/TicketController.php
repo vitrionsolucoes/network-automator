@@ -9,11 +9,31 @@ use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $tickets = Ticket::all();
+        $query = $request->get('search');
+        $filter = $request->get('filter');
+    
+        $tickets = Ticket::when($query, function ($queryBuilder) use ($query) {
+                $queryBuilder->where('title', 'LIKE', '%'.$query.'%')
+                    ->orWhere('description', 'LIKE', '%'.$query.'%');
+            })
+            ->when($filter && $filter != 'all', function ($queryBuilder) use ($filter) {
+                if ($filter == 'open') {
+                    $queryBuilder->where('status', 'open');
+                } elseif ($filter == 'ongoing') {
+                    $queryBuilder->where('status', 'ongoing');
+                } elseif ($filter == 'closed') {
+                    $queryBuilder->where('status', 'closed');
+                }
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+    
         return view('ticket.index', compact('tickets'));
     }
+    
+    
     
     public function show(Ticket $ticket)
     {
@@ -75,11 +95,5 @@ class TicketController extends Controller
     
         $ticket->update(array_merge($request->all(), ['time_spent' => $total_time_spent])); // update ticket with new time_spent value added to current value
         return redirect()->route('ticket.show', ['ticket' => $ticket])->with('success', 'Ticket atualizado com sucesso.');
-    }
-     
-    public function destroy(Ticket $ticket)
-    {
-        $ticket->delete();
-        return redirect()->route('ticket.index')->with('success', 'Ticket excluído com sucesso.');
     }
 }
