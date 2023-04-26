@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Device;
+use App\Models\DeviceModel;
 use Illuminate\Http\Request;
 
-class DeviceController extends Controller
+class DeviceModelController extends Controller
 {
     public function index()
     {
-        return view('device.index');
+        return view('device.model.index');
     }
 
     public function show()
@@ -27,17 +27,17 @@ class DeviceController extends Controller
 
     }
 
-    public function edit(Device $device)
+    public function edit(DeviceModel $device)
     {
 
     }
 
-    public function update(Request $request, Device $device)
+    public function update(Request $request, DeviceModel $device)
     {
 
     }
 
-    public function destroy(Device $device)
+    public function destroy(DeviceModel $device)
     {
 
     }

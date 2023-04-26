@@ -1,13 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LocationController;
-use App\Http\Controllers\DeviceTypeController;
-use App\Http\Controllers\RouterboardController;
-use App\Http\Controllers\IpFirewallAddressListController;
+use App\Http\Controllers\DeviceGroupController;
+use App\Http\Controllers\DeviceModelController;
+use App\Http\Controllers\DeviceVendorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,17 +46,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/location/{location}', [LocationController::class, 'destroy'])->name('location.destroy');
 });
 
-# Device type configuration routes
-Route::middleware('auth')->group(function () {
-    Route::get('/devicetype', [DeviceTypeController::class, 'index'])->name('devicetype.index');
-    Route::get('/devicetype/create', [DeviceTypeController::class, 'create'])->name('devicetype.create');
-    Route::post('/devicetype', [DeviceTypeController::class, 'store'])->name('devicetype.store');
-    Route::get('/devicetype/{location}', [DeviceTypeController::class, 'show'])->name('devicetype.show');
-    Route::get('/devicetype/{location}/edit', [DeviceTypeController::class, 'edit'])->name('devicetype.edit');
-    Route::put('/devicetype/{location}', [DeviceTypeController::class, 'update'])->name('devicetype.update');
-    Route::delete('/devicetype/{location}', [DeviceTypeController::class, 'destroy'])->name('devicetype.destroy');
-});
-
 # Automations configuration routes
 Route::middleware('auth')->group(function () {
     Route::get('/automation', [AutomationController::class, 'index'])->name('automation.index');
@@ -67,19 +57,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/automation/{automation:id}', [AutomationController::class, 'destroy'])->name('automation.destroy');
 });
 
-# Routerboard configuration routes
-Route::middleware('auth')->group(function () {
-    Route::get('/routerboard', [RouterboardController::class, 'index'])->name('routerboard.index');
-    Route::post('/routerboard', [RouterboardController::class, 'store'])->name('routerboard.store');
-    Route::get('/routerboard/create', [RouterboardController::class, 'create'])->name('routerboard.create');
-    Route::get('/routerboard/{routerboard:id}', [RouterboardController::class, 'show'])->name('routerboard.show');
-});
-
-# Routerboard local configuration routes - ip/firewall/address-list
-Route::middleware('auth')->group(function () {
-    Route::get('/routerboard/ip/firewall/address-list/{routerboard:id}', [IpFirewallAddressListController::class, 'create'])->name('routerboard.ip.firewall.address-list.create');
-    Route::post('/routerboard/ip/firewall/address-list/{routerboard:id}', [IpFirewallAddressListController::class, 'store'])->name('routerboard.ip.firewall.address-list.store');
-});
 
 # Tickets configuration routes
 Route::middleware('auth')->group(function () {
@@ -95,6 +72,51 @@ Route::middleware('auth')->group(function () {
 # Comments configuration routes
 Route::middleware('auth')->group(function () {
     Route::post('/comment/{ticket}', [CommentController::class, 'store'])->name('comment.store');
+});
+
+# Devices configuration routes
+Route::middleware('auth')->group(function () {
+    # Index Page
+    Route::get('/device', [DeviceController::class, 'index'])->name('device.index');
+    Route::get('/device/group', [DeviceGroupController::class, 'index'])->name('device.group.index');
+    Route::get('/device/vendor', [DeviceVendorController::class, 'index'])->name('device.vendor.index');
+    Route::get('/device/model', [DeviceModelController::class, 'index'])->name('device.model.index');
+
+    # Create Page
+    Route::get('/device/create', [DeviceController::class, 'create'])->name('device.create');
+    Route::get('/device/group/create', [DeviceGroupController::class, 'create'])->name('device.group.create');
+    Route::get('/device/vendor/create', [DeviceVendorController::class, 'create'])->name('device.vendor.create');
+    Route::get('/device/model/create', [DeviceModelController::class, 'create'])->name('device.model.create');
+
+    # Store Page
+    Route::post('/device', [DeviceController::class, 'store'])->name('device.store');
+    Route::post('/device/group', [DeviceGroupController::class, 'store'])->name('device.group.store');
+    Route::post('/device/vendor', [DeviceVendorController::class, 'store'])->name('device.vendor.store');
+    Route::post('/device/model', [DeviceModelController::class, 'store'])->name('device.model.store');
+
+    # Show Page
+    Route::get('/device/{device}', [DeviceController::class, 'show'])->name('device.show');
+    Route::get('/device/group/{group}', [DeviceGroupController::class, 'show'])->name('device.group.show');
+    Route::get('/device/vendor/{vendor}', [DeviceVendorController::class, 'show'])->name('device.vendor.show');
+    Route::get('/device/model/{model}', [DeviceModelController::class, 'show'])->name('device.model.show');
+    
+    # Edit Page
+    Route::get('/device/{device}/edit', [DeviceController::class, 'edit'])->name('device.edit');
+    Route::get('/device/group/{group}/edit', [DeviceGroupController::class, 'edit'])->name('device.group.edit');
+    Route::get('/device/vendor/{vendor}/edit', [DeviceVendorController::class, 'edit'])->name('device.vendor.edit');
+    Route::get('/device/model/{model}/edit', [DeviceModelController::class, 'edit'])->name('device.model.edit');
+
+    # Update Page
+    Route::put('/device/{device}', [DeviceController::class, 'update'])->name('device.update');
+    Route::put('/device/group/{group}', [DeviceGroupController::class, 'update'])->name('device.group.update');
+    Route::put('/device/vendor/{vendor}', [DeviceVendorController::class, 'update'])->name('device.vendor.update');
+    Route::put('/device/model/{model}', [DeviceModelController::class, 'update'])->name('device.model.update');
+    
+    # Delete Page
+    Route::delete('/device/{device}', [DeviceController::class, 'destroy'])->name('device.destroy');
+    Route::delete('/device/group/{group}', [DeviceGroupController::class, 'destroy'])->name('device.group.destroy');
+    Route::delete('/device/vendor/{vendor}', [DeviceVendorController::class, 'destroy'])->name('device.vendor.destroy');    
+    Route::delete('/device/model/{model}', [DeviceModelController::class, 'destroy'])->name('device.model.destroy');
 });
 
 require __DIR__.'/auth.php';

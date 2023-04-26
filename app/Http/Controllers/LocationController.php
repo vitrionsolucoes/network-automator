@@ -7,9 +7,25 @@ use Illuminate\Http\Request;
 
 class LocationController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $locations = Location::all();
+        $query = $request->get('search');
+        $filter = $request->get('filter');
+    
+        $locations = Location::when($query, function ($queryBuilder) use ($query) {
+                $queryBuilder->where('name', 'LIKE', '%'.$query.'%')
+                    ->orWhere('address_line', 'LIKE', '%'.$query.'%');
+            })
+            ->when($filter && $filter != 'all', function ($queryBuilder) use ($filter) {
+                if ($filter == 'active') {
+                    $queryBuilder->where('status', 'active');
+                } elseif ($filter == 'inactive') {
+                    $queryBuilder->where('status', 'inactive');
+                } 
+            })
+            ->orderBy('name', 'asc')
+            ->paginate(5);
+    
         return view('location.index', compact('locations'));
     }
 
@@ -50,6 +66,7 @@ class LocationController extends Controller
 
     public function destroy(Location $location)
     {
+        dd($location);
         $location->delete();
         return redirect()->route('location.index')->with('success', 'Localidade excluída com sucesso.');
     }

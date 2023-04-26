@@ -6,14 +6,14 @@ use App\Models\Device;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Location extends Model
+class DeviceGroup extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['name', 'city', 'state', 'address_line', 'number', 'status'];
-
+    protected $fillable = ['name'];
+    
     public function device()
     {
         return $this->hasMany(Device::class);
     }
+    
 }
