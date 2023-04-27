@@ -2,7 +2,7 @@
 
 return [
     'open' => 'Aberto',
-    'ongoing' => 'Em andamento',
+    'ongoing' => 'Em progresso',
     'closed' => 'Fechado',
     'active' => 'Ativo',
     'inactive' => 'Inativo'

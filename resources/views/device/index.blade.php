@@ -64,6 +64,7 @@
                                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">Grupo</th>
                                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">Modelo</th>
                                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">Status</th>
+                                <th scope="col" class="px-6 py-4 font-medium text-gray-900">ICMP</th>
                                 </th>
                                 <th scope="col" class="px-6 py-4 font-medium text-gray-900 text-right">
                                     <a href="device/create">
@@ -132,6 +133,14 @@
                                             class="h-1.5 w-1.5 rounded-full {{ $device->status == 'inactive' ? 'bg-red-600' : 'bg-green-600' }}"></span>
                                         {{ trans('messages.' . $device->status) }}
                                     </span>
+                                </td>
+
+                                <td>
+                                    <div>
+                                        <span>
+                                            OK
+                                        </span>
+                                    </div>
                                 </td>
 
                                 <td>
