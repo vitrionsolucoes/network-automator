@@ -46,18 +46,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/location/{location}', [LocationController::class, 'destroy'])->name('location.destroy');
 });
 
-# Automations configuration routes
-Route::middleware('auth')->group(function () {
-    Route::get('/automation', [AutomationController::class, 'index'])->name('automation.index');
-    Route::get('/automation/create', [AutomationController::class, 'create'])->name('automation.create');
-    Route::post('/automation', [AutomationController::class, 'store'])->name('automation.store');
-    Route::get('/automation/{automation:id}', [AutomationController::class, 'show'])->name('automation.show');
-    Route::get('/automation/{automation:id}/edit', [AutomationController::class, 'edit'])->name('automation.edit');
-    Route::put('/automation/{automation:id}', [AutomationController::class, 'update'])->name('automation.update');
-    Route::delete('/automation/{automation:id}', [AutomationController::class, 'destroy'])->name('automation.destroy');
-});
-
-
 # Tickets configuration routes
 Route::middleware('auth')->group(function () {
     Route::get('/ticket', [TicketController::class, 'index'])->name('ticket.index');

@@ -37,11 +37,21 @@
 
                         <div class="mt-4">
                             <x-input-label for="requester_id" :value="__('Solicitante')" />
-
                             <select id="requester_id" name="requester_id"
                                 class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 @foreach ($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="mt-4">
+                            <x-input-label for="device_id" :value="__('Equipamento')" />
+                            <select id="device_id" name="device_id"
+                                class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                <option value=""></option>
+                                @foreach ($devices as $device)
+                                <option value="{{ $device->id }}">{{ $device->hostname }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -54,7 +64,8 @@
                                 value="0" required>
                         </div>
 
-                        <input type="datetime-local" id="close_date_estimate" name="close_date_estimate" value="2017-06-01" />
+                        <input type="datetime-local" id="close_date_estimate" name="close_date_estimate"
+                            value="2017-06-01" />
 
                         <div class="mt-4">
                             <x-input-label for="attendant_id" :value="__('Atendente')" />

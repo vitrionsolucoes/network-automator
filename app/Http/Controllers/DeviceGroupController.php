@@ -34,7 +34,7 @@ class DeviceGroupController extends Controller
 
     public function edit(DeviceGroup $device)
     {
-
+        return view('device.group.edit');
     }
 
     public function update(Request $request, DeviceGroup $device)
@@ -42,10 +42,9 @@ class DeviceGroupController extends Controller
 
     }
 
-    public function destroy(Request $request, DeviceGroup $deviceGroup)
+    public function destroy($deviceGroup)
     {
-        dd($request);
-        $deviceGroup->delete();
+        dd($deviceGroup);
         return redirect()->route('device.group.index')->with('success', 'Localidade excluída com sucesso.');
     }
 }

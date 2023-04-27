@@ -68,7 +68,7 @@
                         <tbody class="divide-y divide-gray-100 border-t border-gray-100">
                             @foreach($locations as $location)
                             <tr class="hover:bg-gray-50">
-                                <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
+                                <td class="flex gap-3 px-6 py-4 font-normal text-gray-900">
                                     <div class="text-sm">
                                         <div class="font-medium text-gray-700">
                                             <span>
@@ -81,7 +81,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                </th>
+                                </td>
                                 <td class="px-6 py-4">
                                     <span class="font-medium text-gray-700">
                                         {{ $location->address_line }}, {{ $location->number }}
@@ -92,7 +92,7 @@
                                         class="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold {{ $location->status == 'inactive' ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600' }}">
                                         <span
                                             class="h-1.5 w-1.5 rounded-full {{ $location->status == 'inactive' ? 'bg-red-600' : 'bg-green-600' }}"></span>
-                                            {{ trans('messages.' . $location->status) }}
+                                        {{ trans('messages.' . $location->status) }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4">

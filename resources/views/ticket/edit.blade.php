@@ -65,6 +65,20 @@
                             </div>
 
                             <div class="mt-4">
+                                <x-input-label for="device_id" :value="__('Equipamento')" />
+                                <select id="device_id" name="device_id"
+                                    class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                    @foreach ($devices as $device)
+                                    <option value="{{ $device->id }}"
+                                        {{ $device->id == $ticket->device_id ? 'selected' : '' }}>
+                                        {{ $device->hostname }}
+                                    </option>
+                                    @endforeach
+                                <option value=""></option>
+                                </select>
+                            </div>
+
+                            <div class="mt-4">
                                 <x-input-label for="attendant_id" :value="__('Atendente')" />
                                 <select id="attendant_id" name="attendant_id"
                                     class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">

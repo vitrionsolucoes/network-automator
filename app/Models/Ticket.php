@@ -10,7 +10,19 @@ class Ticket extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['title', 'description', 'requester_id', 'attendant_id', 'device_id', 'priority', 'status', 'time_spent', 'time_estimate', 'close_date_estimate', 'ended_at'];
+    protected $fillable = [
+        'title', 
+        'description', 
+        'requester_id', 
+        'attendant_id', 
+        'device_id', 
+        'priority', 
+        'status', 
+        'time_spent', 
+        'time_estimate', 
+        'close_date_estimate', 
+        'ended_at'
+    ];
 
     public function requester()
     {

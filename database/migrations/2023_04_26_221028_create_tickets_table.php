@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('time_estimate')->nullable();
             $table->timestamp('close_date_estimate')->nullable();
             $table->timestamp('ended_at')->nullable();
-            $table->foreignId('device_id')->constrained();
+            $table->foreignId('device_id')->constrained()->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }

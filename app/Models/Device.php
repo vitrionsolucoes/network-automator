@@ -13,7 +13,18 @@ class Device extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'device_group_id'];
+    protected $fillable = [
+        'name',
+        'hostname',
+        'ipv4_address',
+        'ipv6_address',
+        'snmp_version',
+        'snmp_community',
+        'device_group_id',
+        'device_model_id',
+        'location_id',
+        'status',
+    ];
 
     public function deviceGroup()
     {

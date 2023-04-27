@@ -50,6 +50,17 @@
                         </div>
 
                         <div class="flex items-center justify-between mt-4">
+                            @if ($ticket->device)
+                                <span class="text-sm text-gray-600 font-medium">Equipamento:</span>
+                                <a class="hover:text-gray-900 hover:underline" href="/device/{{ $ticket->device->id }}">
+                                    <span class="text-sm font-medium">{{ $ticket->device->hostname }}</span>
+                                </a>
+                            @else
+                                <span class="text-sm text-gray-600 font-medium">Sem equipamento associado ao ticket.</span>
+                            @endif
+                        </div>
+
+                        <div class="flex items-center justify-between mt-4">
                             <span class="text-sm text-gray-600 font-medium">Atendente:</span>
                             <span
                                 class="text-sm font-medium">{{ $ticket->attendant ? $ticket->attendant->name : '-' }}</span>
@@ -117,9 +128,9 @@
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                         <h3 class="text-lg font-medium mb-2">Comentários</h3>
-                        @if ($comments->count() > 0)
+                        @if ($ticket->comments()->count() > 0)
                         <div class="space-y-4">
-                            @foreach ($comments as $comment)
+                            @foreach ($ticket->comments as $comment)
                             <div class="flex items-center space-x-2">
                                 <div>
                                     <div class="text-sm font-medium">{{ $comment->user->name }}</div>

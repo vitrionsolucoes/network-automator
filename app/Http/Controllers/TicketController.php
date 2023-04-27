@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
-use App\Models\Ticket;
 use App\Models\User;
+use App\Models\Device;
+use App\Models\Ticket;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -37,16 +38,15 @@ class TicketController extends Controller
     
     public function show(Ticket $ticket)
     {
-        $users = User::all();
-        $comments = $ticket->comments;
-        return view('ticket.show', compact('ticket', 'comments', 'users'));
+        return view('ticket.show', compact('ticket'));
     }
     
 
     public function create()
     {
         $users = User::all();
-        return view('ticket.create', compact('users'));
+        $devices = Device::all();
+        return view('ticket.create', compact('users', 'devices'));
     }
 
     public function store(Request $request)
@@ -60,6 +60,7 @@ class TicketController extends Controller
             'status' => $request->input('status'),
             'time_estimate' => $request->input('time_estimate'),
             'close_date_estimate' => $request->input('close_date_estimate'),
+            'device_id' => $request->input('device_id'),
         ]);
 
         return redirect()->route('ticket.index');
@@ -72,7 +73,8 @@ class TicketController extends Controller
         }
 
         $users = User::all();
-        return view('ticket.edit', compact('ticket', 'users'));
+        $devices = Device::all();
+        return view('ticket.edit', compact('ticket', 'users', 'devices'));
     }
 
     public function update(Request $request, Ticket $ticket)

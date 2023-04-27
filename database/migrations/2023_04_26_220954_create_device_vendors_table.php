@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('device_vendors', function (Blueprint $table) {
             $table->id();
-            $table->string('vendor');
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }

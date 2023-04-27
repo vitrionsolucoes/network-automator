@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('devices', function (Blueprint $table) {
             $table->id();
-            $table->string('hostname')->unique();
+            $table->string('name')->unique();
+            $table->string('hostname')->nullable();
             $table->string('ipv4_address')->unique()->nullable();
             $table->string('ipv6_address')->unique()->nullable();
+            $table->integer('snmp_version')->nullable();;
+            $table->string('snmp_community')->nullable();;
+            $table->string('status');
             $table->foreignId('device_group_id')->constrained()->onDelete('cascade');
             $table->foreignId('device_model_id')->constrained()->onDelete('cascade');
             $table->foreignId('location_id')->constrained()->onDelete('cascade');

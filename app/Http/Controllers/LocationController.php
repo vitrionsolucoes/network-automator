@@ -66,8 +66,11 @@ class LocationController extends Controller
 
     public function destroy(Location $location)
     {
-        dd($location);
         $location->delete();
-        return redirect()->route('location.index')->with('success', 'Localidade excluída com sucesso.');
+    
+        return redirect()
+            ->route('location.index')
+            ->with('success', 'Localidade excluída com sucesso.');
     }
+    
 }
