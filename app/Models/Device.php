@@ -41,7 +41,7 @@ class Device extends Model
         return $this->belongsTo(Location::class);
     }
 
-    public function ticket()
+    public function tickets()
     {
         return $this->hasMany(Ticket::class);
     }

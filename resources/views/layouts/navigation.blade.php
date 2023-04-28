@@ -15,10 +15,10 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('location.index')" :active="request()->routeIs('location.index')">
+                    <x-nav-link :href="route('location.index')" :active="str_starts_with(request()->route()->getName(), 'location.')">
                         {{ __('Localidades') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('ticket.index')" :active="request()->routeIs('ticket.index')">
+                    <x-nav-link :href="route('ticket.index')" :active="str_starts_with(request()->route()->getName(), 'ticket.')">
                         {{ __('Tickets') }}
                     </x-nav-link>
                     <x-nav-link :href="route('device.index')" :active="str_starts_with(request()->route()->getName(), 'device.')">
