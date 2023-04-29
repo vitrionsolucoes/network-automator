@@ -8,9 +8,15 @@ use Illuminate\Http\Request;
 
 class DeviceModelController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $deviceModels = DeviceModel::all();
+        $query = $request->get('search');
+        $deviceModels = DeviceModel::when($query, function ($queryBuilder) use ($query) {
+                $queryBuilder->where('name', 'LIKE', '%'.$query.'%');
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+    
         return view('device.model.index', compact('deviceModels'));
     }
 

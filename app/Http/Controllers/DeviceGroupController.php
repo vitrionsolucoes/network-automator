@@ -9,7 +9,13 @@ class DeviceGroupController extends Controller
 {
     public function index(Request $request)
     {
-        $deviceGroups = DeviceGroup::all();
+        $query = $request->get('search');
+        $deviceGroups = DeviceGroup::when($query, function ($queryBuilder) use ($query) {
+                $queryBuilder->where('name', 'LIKE', '%'.$query.'%');
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+    
         return view('device.group.index', compact('deviceGroups'));
     }
 

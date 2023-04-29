@@ -7,9 +7,15 @@ use Illuminate\Http\Request;
 
 class DeviceVendorController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $deviceVendors = DeviceVendor::all();
+        $query = $request->get('search');
+        $deviceVendors = DeviceVendor::when($query, function ($queryBuilder) use ($query) {
+                $queryBuilder->where('name', 'LIKE', '%'.$query.'%');
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+    
         return view('device.vendor.index', compact('deviceVendors'));
     }
 

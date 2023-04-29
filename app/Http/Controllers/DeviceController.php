@@ -11,10 +11,30 @@ use FreeDSx\Snmp\SnmpClient;
 
 class DeviceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $devices = Device::all();
-        return view('device.index', compact('devices'));
+        {
+            $query = $request->get('search');
+            $filter = $request->get('filter');
+
+            $devices = Device::when($query, function ($queryBuilder) use ($query) {
+                    $queryBuilder->where('name', 'LIKE', '%'.$query.'%')
+                        ->orWhere('hostname', 'LIKE', '%'.$query.'%')
+                        ->orWhere('ipv4_address', 'LIKE', '%'.$query.'%')
+                        ->orWhere('ipv6_address', 'LIKE', '%'.$query.'%');
+                })
+                ->when($filter && $filter != 'all', function ($queryBuilder) use ($filter) {
+                    if ($filter == 'active') {
+                        $queryBuilder->where('status', 'active');
+                    } elseif ($filter == 'inactive') {
+                        $queryBuilder->where('status', 'inactive');
+                    }
+                })
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
+        
+            return view('device.index', compact('devices'));
+        }
     }
 
     public function show($id)
