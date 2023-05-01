@@ -1,10 +1,10 @@
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-            <x-devices-index-search-bar formAction="{{ route('device.group.index') }}"
+            <x-index-search-bar formAction="{{ route('device.group.index') }}"
                 resetUrl="{{ route('device.group.index') }}">
                 <input type="text" name="search" id="search" class="border border-gray-400 rounded-md py-2 px-3 w-full">
-            </x-devices-index-search-bar>
+            </x-index-search-bar>
 
             <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
                 <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">

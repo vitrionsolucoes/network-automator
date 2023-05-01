@@ -22,7 +22,7 @@
                         {{ __('Tickets') }}
                     </x-nav-link>
                     <x-nav-link :href="route('device.index')" :active="str_starts_with(request()->route()->getName(), 'device.')">
-                        {{ __('Dispositivos') }}
+                        {{ __('Equipamentos') }}
                     </x-nav-link>
                 </div>
             </div>

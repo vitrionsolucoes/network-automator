@@ -8,17 +8,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <!-- component -->
-                    <!-- This is an example component -->
                     <div class="max-w-2xl mx-auto bg-white p-16">
-                        <!-- change the form action to use the update method instead of the store method -->
                         <form action="{{ route('ticket.update', $ticket->id) }}" method="POST">
                             @csrf
                             @method('PUT')
-                            <!-- add a hidden input field to specify that the form is using the PUT method -->
                             <div class="lg:col-span-3 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                 <label for="title">Título</label>
-                                <!-- populate the input field with the location's current title -->
                                 <input type="text" id="title" name="title"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     value="{{ $ticket->title }}" required>
@@ -26,7 +21,6 @@
 
                             <div class="lg:col-span-3 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                 <label for="description">Descrição</label>
-                                <!-- populate the input field with the location's current description -->
                                 <textarea type="text" id="description" name="description" rows="6"
                                     class="g-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     value="{{ $ticket->description }}" required>{{ $ticket->description }}</textarea>
@@ -34,7 +28,6 @@
 
                             <div class="lg:col-span-3 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                 <label for="time_spent">Tempo Gasto (minutos)</label>
-                                <!-- populate the input field with the location's current time_spent -->
                                 <input type="number" id="time_spent" name="time_spent" min="0"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     value="0" required>

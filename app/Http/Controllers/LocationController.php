@@ -29,8 +29,9 @@ class LocationController extends Controller
         return view('location.index', compact('locations'));
     }
 
-    public function show(Location $location)
+    public function show($id)
     {
+        $location = Location::find($id);
         return view('location.show', compact('location'));
     }
 
@@ -53,21 +54,21 @@ class LocationController extends Controller
         return redirect()->route('location.index');
     }
 
-    public function edit(Location $location)
+    public function edit($id)
     {
+        $location = Location::find($id);
         return view('location.edit', compact('location'));
     }
 
-    public function update(Request $request, Location $location)
+    public function update(Request $request, $id)
     {
-        $location->update($request->all());
+        Location::find($id)->update($request->all());
         return redirect()->route('location.index')->with('success', 'Localidade atualizada com sucesso.');
     }
 
     public function destroy(Location $location)
     {
         $location->delete();
-    
         return redirect()
             ->route('location.index')
             ->with('success', 'Localidade excluída com sucesso.');

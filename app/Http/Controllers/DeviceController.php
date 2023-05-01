@@ -7,7 +7,6 @@ use App\Models\Location;
 use App\Models\DeviceGroup;
 use App\Models\DeviceModel;
 use Illuminate\Http\Request;
-use FreeDSx\Snmp\SnmpClient;
 
 class DeviceController extends Controller
 {
@@ -40,14 +39,6 @@ class DeviceController extends Controller
     public function show($id)
     {
         $device = Device::find($id);
-        /* $snmp = new SnmpClient([
-            'host' => $device->ipv4_address,
-            'version' => $device->snmp_version,
-            'community' => $device->snmp_community,
-        ]);
-        
-        $response = $snmp->getValue('1.3.6.1.2.1.1.5.0').PHP_EOL; */
-        
         return view('device.show', compact('device'));
     }
 
@@ -76,19 +67,24 @@ class DeviceController extends Controller
         return redirect()->route('device.index')->with('success', 'Equipamento criado com sucesso.');
     }
 
-    public function edit(Device $device)
+    public function edit($id)
     {
-        return view('device.edit');
+        $device = Device::find($id);
+        $deviceGroups = DeviceGroup::all();
+        $deviceModels = DeviceModel::all();
+        $locations = Location::all();
+        return view('device.edit', compact('device', 'deviceGroups', 'deviceModels', 'locations'));
     }
 
-    public function update(Request $request, Device $device)
+    public function update(Request $request, $device)
     {
-
+        Device::find($device)->update(array_merge($request->all()));
+        return redirect()->route('device.show', ['device' => $device])->with('success', 'Equipamento atualizado com sucesso.');
     }
 
-    public function destroy(Device $device)
+    public function destroy($device)
     {
-        $device->delete();
+        Device::find($device)->delete();
         return redirect()
             ->route('device.index')
             ->with('success', 'Equipamento excluído com sucesso.');

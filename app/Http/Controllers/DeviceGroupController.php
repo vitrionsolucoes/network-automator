@@ -19,12 +19,13 @@ class DeviceGroupController extends Controller
         return view('device.group.index', compact('deviceGroups'));
     }
 
-    public function show()
+    public function show($id)
     {
-
+        $deviceGroup = DeviceGroup::find($id);
+        return view('device.group.show', compact('deviceGroup'));
     }
 
-    public function create(Request $request)
+    public function create()
     {
         return view('device.group.create');
     }
@@ -38,19 +39,20 @@ class DeviceGroupController extends Controller
         return redirect()->route('device.group.index');
     }
 
-    public function edit(DeviceGroup $device)
+    public function edit()
     {
         return view('device.group.edit');
     }
 
-    public function update(Request $request, DeviceGroup $device)
+    public function update(Request $request, $id)
     {
-
+        DeviceGroup::find($id)->update($request->all());
+        return redirect()->route('device.group.index')->with('success', 'Grupo atualizado com sucesso.');
     }
 
-    public function destroy($deviceGroup)
+    public function destroy($id)
     {
-        dd($deviceGroup);
-        return redirect()->route('device.group.index')->with('success', 'Localidade excluída com sucesso.');
+        DeviceGroup::find($id)->delete();
+        return redirect()->route('device.group.index')->with('success', 'Grupo excluído com sucesso.');
     }
 }

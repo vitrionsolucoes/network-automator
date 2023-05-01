@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Device;
 use App\Models\Ticket;
-use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -34,10 +33,9 @@ class TicketController extends Controller
         return view('ticket.index', compact('tickets'));
     }
     
-    
-    
-    public function show(Ticket $ticket)
+    public function show($id)
     {
+        $ticket = Ticket::find($id);
         return view('ticket.show', compact('ticket'));
     }
     
@@ -66,8 +64,9 @@ class TicketController extends Controller
         return redirect()->route('ticket.index');
     }
 
-    public function edit(Ticket $ticket)
+    public function edit($id)
     {
+        $ticket = Ticket::find($id);
         if ($ticket->status == "closed" ){
             return redirect()->route('ticket.index')->with('error', 'Tickets fechados não podem ser atualizados.');
         }
@@ -77,8 +76,9 @@ class TicketController extends Controller
         return view('ticket.edit', compact('ticket', 'users', 'devices'));
     }
 
-    public function update(Request $request, Ticket $ticket)
+    public function update(Request $request, $id)
     {
+        $ticket = Ticket::find($id);
         if ($ticket->status == "closed" ){
             return redirect()->route('ticket.index')->with('error', 'Tickets fechados não podem ser atualizados.');
         }

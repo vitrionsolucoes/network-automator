@@ -19,9 +19,10 @@ class DeviceVendorController extends Controller
         return view('device.vendor.index', compact('deviceVendors'));
     }
 
-    public function show()
+    public function show($id)
     {
-        
+        $deviceVendor = DeviceVendor::find($id);
+        return view('device.vendor.show', compact('deviceVendor'));
     }
 
     public function create()
@@ -38,19 +39,23 @@ class DeviceVendorController extends Controller
         return redirect()->route('device.vendor.index');
     }
 
-    public function edit(DeviceVendor $device)
+    public function edit($id)
     {
-        return view('device.vendor.edit');
+        $deviceVendor = DeviceVendor::find($id);
+        return view('device.vendor.edit', compact('deviceVendor'));
     }
 
-    public function update(Request $request, DeviceVendor $device)
+    public function update(Request $request, $id)
     {
-
+        DeviceVendor::find($id)->update($request->all());
+        return redirect()->route('device.vendor.index')->with('success', 'Fabricante atualizado com sucesso.');
     }
 
-    public function destroy(DeviceVendor $device)
+    public function destroy($id)
     {
-        $device->delete();
-        return view('device.vendor.index')->with('success', 'Fabricante excluído com sucesso.');
+        DeviceVendor::find($id)->delete();
+        return redirect()
+        ->route('device.vendor.index')
+        ->with('success', 'Fabricante excluído com sucesso.');
     }
 }

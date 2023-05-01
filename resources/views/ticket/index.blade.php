@@ -4,10 +4,15 @@
             {{ __('Todos os Tickets') }}
         </h2>
     </x-slot>
+
+    <!-- Inicializa o fundo branco sob a tela cinza -->
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+            <!-- Inicializa o fundo da tabela -->
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
 
+                <!-- Barra de Busca e Filtro -->
                 <div class="p-2 flex justify-center items-center mb-4">
                     <form method="get" action="{{ route('ticket.index') }}"
                         class="inline-flex justify-between items-center">
@@ -46,28 +51,22 @@
                     </div>
                 </div>
 
-                <!-- component -->
+                <!-- Inicio da Tabela -->
                 <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
                     <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th scope="col" class="px-6 py-4 font-medium text-gray-900">Título</th>
-                                <th scope="col" class="px-6 py-4 font-medium text-gray-900">Solicitante</th>
-                                <th scope="col" class="px-6 py-4 font-medium text-gray-900">Status</th>
-                                <th scope="col" class="px-6 py-4 font-medium text-gray-900">Idade</th>
-                                <th scope="col" class="px-6 py-4 font-medium text-gray-900 text-right">
-                                    <a href="ticket/create">
-                                        <button
-                                            class="px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
-                                            Novo Ticket
-                                        </button>
-                                    </a>
-                                </th>
-                            </tr>
-                        </thead>
+                    <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
+
+                        <!-- Head -->
+                        <x-table-head 
+                            :columns="['Título', 'Solicitante', 'Status', 'Idade']"
+                            :button-text="'Novo Ticket'" 
+                            :button-link="'ticket/create'" 
+                            />
+
+                        <!-- Body -->
                         <tbody class="divide-y divide-gray-100 border-t border-gray-100">
                             @foreach($tickets as $ticket)
-                            <tr class="hover:bg-gray-50">
+                            <tr  class="hover:bg-gray-50 font-medium text-gray-700">
                                 <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
                                     <div class="text-sm">
                                         <div class="font-medium text-gray-700">{{ $ticket->title }}</div>
@@ -92,20 +91,10 @@
                                     {{ \Carbon\Carbon::parse($ticket->created_at)->diffForHumans() }}
                                 </td>
 
-                                <td class="px-6 py-4">
-                                    <div class="flex justify-end gap-4">
-                                        <a x-data="{ tooltip: 'Edit' }" href="/ticket/{{ $ticket->id }}/edit">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="h-6 w-6"
-                                                x-tooltip="tooltip">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
-                                            </svg>
-                                        </a>
-                                        <a href="/ticket/{{ $ticket->id }}">
-                                            <i class="fa fa-arrow-right"></i>
-                                        </a>
-                                    </div>
+                                <td class="flex justify-end gap-4 pr-6 pt-6">
+                                <x-controller-actions 
+                                    editLink="{{ route('ticket.edit', $ticket->id) }}"
+                                    showLink="{{ route('ticket.show', $ticket->id) }}"/>
                                 </td>
                             </tr>
                             @endforeach

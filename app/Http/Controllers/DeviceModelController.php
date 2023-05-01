@@ -20,9 +20,10 @@ class DeviceModelController extends Controller
         return view('device.model.index', compact('deviceModels'));
     }
 
-    public function show()
+    public function show($id)
     {
-
+        $deviceModel = DeviceModel::find($id);
+        return view('device.model.show', compact('deviceModel'));
     }
 
     public function create()
@@ -38,22 +39,24 @@ class DeviceModelController extends Controller
             'device_vendor_id' => $request->input('device_vendor_id')
         ]);
 
-        return redirect()->route('device.vendor.index');
+        return redirect()->route('device.model.index')->with('success', 'Modelo criado com sucesso.');
     }
 
-    public function edit(DeviceModel $device)
+    public function edit($id)
     {
-        return view('device.model.edit');
+        $deviceModel = DeviceModel::find($id);
+        return view('device.model.edit', compact('deviceModel'));
     }
 
-    public function update(Request $request, DeviceModel $device)
+    public function update(Request $request, $id)
     {
-
+        DeviceModel::find($id)->update($request->all());
+        return redirect()->route('device.model.index')->with('success', 'Modelo atualizado com sucesso.');
     }
 
-    public function destroy(DeviceModel $deviceModel)
+    public function destroy($id)
     {
-        $deviceModel->delete();
+        DeviceModel::find($id)->delete();
         return view('device.model.index')->with('success', 'Modelo excluído com sucesso.');
     }
 }

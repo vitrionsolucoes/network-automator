@@ -4,12 +4,11 @@
             {{ __('Criar Localidade') }}
         </h2>
     </x-slot>
+    
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <!-- component -->
-                    <!-- This is an example component -->
                     <div class="max-w-2xl mx-auto bg-white p-16">
                         <form action="{{ route('location.store') }}" method="POST">
                             @csrf
@@ -63,7 +62,6 @@
                                     </select>
                                 </div>
                             </div>
-                            <!-- 1 Coluna -->
                             <div class="grid gap-6 mb-6 lg:grid-cols-7">
                                 <div class="lg:col-span-6 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                     <label for="address_line">Endereço</label>
